@@ -1,0 +1,30 @@
+[
+  {
+    "id": "fe048546dda67fec",
+    "topic": "errors",
+    "timestamp": "2025-10-15 19:00:33",
+    "content": {
+      "message_id": 5754,
+      "timestamp": "2025-10-15 19:00:32",
+      "priority": "critical",
+      "source": "server",
+      "value": 59.03,
+      "status": "error",
+      "description": "Mesaj de test generat automat la 2025-10-15 19:00:32"
+    }
+  },
+  {
+    "id": "fe048546dda67fec",
+    "topic": "errors",
+    "timestamp": "2025-10-15 19:00:33",
+    "content": {
+      "message_id": 5754,
+      "timestamp": "2025-10-15 19:00:32",
+      "priority": "critical",
+      "source": "server",
+      "value": 59.03,
+      "status": "error",
+      "description": "Mesaj de test generat automat la 2025-10-15 19:00:32"
+    }
+  }
+]
