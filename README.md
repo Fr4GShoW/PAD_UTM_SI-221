@@ -1,175 +1,110 @@
 # PAD_UTM_SI-221
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge) ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge) 
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white) ![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge) ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge) 
 
 
 ## 📋 Description
 
-Proiect pentru disciplina Programarea Aplicațiilor Distribuite (PAD) - UTM, grupa SI-221. Acest proiect se concentrează pe scriptare Python pentru sisteme distribuite, cu aplicații practice în mesagerie, proxy web și cloud.
+Proiect pentru disciplina Programarea Aplicațiilor Distribuite (PAD) - UTM, grupa SI-221. Acest proiect demonstrează concepte de bază ale programării distribuite, inclusiv socket-uri, RPC, sau middleware.
 
 ## 🗂️ Laboratory Works
 
 ### [![Lab 1](https://img.shields.io/badge/Lab%201-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Fr4GShoW/PAD_UTM_SI-221/tree/main/Lab1)
 
-**Agent de Mesagerie**
+**Introducere în Programarea Distribuită**
 
-Implementarea unui sistem de mesagerie distribuit folosind Python. Acest laborator demonstrează comunicarea asincronă între procesoare folosind cozi de mesaje și socket-uri.
+Primul laborator care introduce conceptele de bază ale programării distribuite, configurarea mediului de dezvoltare și primul exemplu de aplicație client-server.
 
-**Technologies:** `Python 3`, `Socket Programming`, `Threading`, `Message Queues`
+**Technologies:** `Java`, `Socket Programming`, `Multithreading`
 
 **Key Features:**
-- Server de mesagerie cu suport pentru multiple clienți
-- Comunicare asincronă folosind fire de execuție
-- Protocol de mesaje personalizat
-- Gestionarea conexiunilor persistente
-- Sistem de autentificare simplu
+- Configurarea inițială a proiectului
+- Implementarea unui server TCP basic
+- Crearea unui client simplu
+- Comunicarea prin socket-uri
 
 ---
 
 ### [![Lab 2](https://img.shields.io/badge/Lab%202-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Fr4GShoW/PAD_UTM_SI-221/tree/main/Lab2)
 
-**Web Proxy: Realizarea Transparenței în Distribuire**
+**Lab 2 - Distributed Systems Laboratory**
 
-Dezvoltarea unui server proxy web care asigură transparența în distribuirea resurselor. Proxy-ul cachează cererile și optimizează comunicarea între clienți și servere.
-
-**Technologies:** `Python 3`, `HTTP Protocol`, `Caching`, `URL Filtering`
-
-**Key Features:**
-- Interceptare și procesare cereri HTTP
-- Sistem de caching pentru resurse statice
-- Filtrare URL-uri bazată pe reguli
-- Logging extensiv al traficului
-- Suport pentru conexiuni securizate
+Laboratory work for Distributed Systems Programming course.
 
 ---
 
 ### [![Lab 3](https://img.shields.io/badge/Lab%203-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Fr4GShoW/PAD_UTM_SI-221/tree/main/Lab3)
 
-**Aplicație în Nori (Cloud Application)**
+**Lab 3 - Distributed Systems Laboratory**
 
-Crearea unei aplicații distribuite în cloud folosind servicii Python. Integrare cu API-uri cloud și gestionarea resurselor distribuite.
-
-**Technologies:** `Python 3`, `Flask/FastAPI`, `REST APIs`, `Cloud Storage`, `Microservices`
-
-**Key Features:**
-- Arhitectură microservicii
-- API RESTful pentru comunicare
-- Integrare cu servicii cloud
-- Managementul stării distribuite
-- Scalare orizontală a serviciilor
+Laboratory work for Distributed Systems Programming course.
 
 ---
 
 ## ✨ Features
 
-- Scriptare intensivă în Python pentru sisteme distribuite
-- Comunicare prin socket-uri TCP/UDP
-- Procesare paralelă folosind threading și multiprocessing
-- Arhitecturi scalabile și resiliente
-- Integrare cu protocoale web (HTTP/HTTPS)
-- Gestionarea resurselor în medii distribuite
+- Comunicare client-server folosind socket-uri TCP/UDP
+- Procesare distribuită a datelor
+- Managementul resurselor într-o rețea
+- Arhitectură scalabilă și modulară
+- Documentație detaliată în limba română
 
 ## 🛠️ Technologies
 
-- **Python 3.8+**
+- **Java 11+**
 - **Socket Programming**
-- **Threading & Multiprocessing**
-- **Flask/FastAPI pentru servicii web**
-- **Requests pentru HTTP clients**
-- **SQLite/PostgreSQL pentru stocare**
-- **Unittest pentru teste**
+- **Multithreading**
+- **Maven**
+- **JUnit pentru teste**
 
 ## 🚀 Installation
 
 1. Clonează repository-ul: `git clone https://github.com/Fr4GShoW/PAD_UTM_SI-221.git`
 2. Intră în directorul proiectului: `cd PAD_UTM_SI-221`
-3. Creează un mediu virtual: `python -m venv venv`
-4. Activează mediul virtual:
-5.   - Windows: `venv\Scripts\activate`
-6.   - Linux/Mac: `source venv/bin/activate`
-7. Instalează dependințele: `pip install -r requirements.txt`
-8. Rulează aplicațiile individuale din fiecare folder Lab
+3. Compilează proiectul: `mvn compile`
+4. Rulează testele: `mvn test`
+5. Construiește JAR-ul: `mvn package`
 
 ## 📖 Usage
 
-## 🚀 Cum să rulezi proiectele
-
-
-
-### Lab 1 - Agent de Mesagerie
-
+### Server
 ```bash
-
-cd Lab1
-
-python server.py
-
-# În alt terminal:
-python listener.py
-python gui_sender.py
-
+java -jar target/pad-server.jar
 ```
 
-
-
-### Lab 2 - Web Proxy
-
+### Client
 ```bash
-
-cd Lab2
-
-python main.py
-
-# Configurează browser-ul să folosească proxy pe localhost:8080
-
+java -jar target/pad-client.jar
 ```
 
-
-
-### Lab 3 - Aplicație Cloud
-
-```bash
-
-cd Lab3
-
-python cloud_app.py
-
-# Accesează http://localhost:5000 în browser
-
-```
+### Configurare
+Modifică fișierul `config.properties` pentru a seta porturile și adresele IP.
 
 ## 📁 Project Structure
 
 ```
 PAD_UTM_SI-221/
-├── Lab1/                  # Agent de Mesagerie
+├── Lab1/
 │   ├── src/
-│   │   ├── server.py
-│   │   ├── listener.py
-│   │   ├── schema.json
-│   │   ├── schema.xsd
-│   │   └── gui_sender.py
-│   ├── messages.json
-│   ├── messages.xml
-│   └── requirements.txt
-├── Lab2/                  # Web Proxy
+│   ├── docs/
+│   └── README.md
+├── Lab2/ 
 │   ├── src/
-│   │   ├── http_proxy.py
-│   │   ├── health_check.py
-│   │   ├── backend_simulator.py
-│   │   ├── main.py
-│   └── └── management_API.py
-├── Lab3/                  # Aplicație Cloud
+│   ├── docs/
+│   └── README.md
+├── Lab3/
 │   ├── src/
-│   │   ├── cloud_app.py
-│   │   ├── api/
-│   │   ├── services/
-│   │   └── models/
-│   ├── tests/
-│   └── requirements.txt
-├── docs/                  # Documentație
-├── requirements.txt       # Dependințe generale
-└── README.md
+│   ├── docs/
+│   └── README.md
+├── Lab4/
+│   ├── src/
+│   ├── docs/ 
+│   └── README.md
+├── config/
+│   └── config.properties
+├── docs/
+│   └── documentation.md
+└── pom.xml
 ```
 
 ## 🤝 Contributing

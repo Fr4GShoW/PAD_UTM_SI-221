@@ -1,30 +1,30 @@
 [
   {
-    "id": "d270d8d296366e8b",
-    "topic": "notifications",
-    "timestamp": "2025-10-15 19:52:29",
+    "id": "fe048546dda67fec",
+    "topic": "errors",
+    "timestamp": "2025-10-15 19:00:33",
     "content": {
-      "message_id": 9907,
-      "timestamp": "2025-10-15 19:52:16",
+      "message_id": 5754,
+      "timestamp": "2025-10-15 19:00:32",
       "priority": "critical",
       "source": "server",
-      "value": 15.6,
-      "status": "active",
-      "description": "Mesaj de test generat automat la 2025-10-15 19:52:16"
+      "value": 59.03,
+      "status": "error",
+      "description": "Mesaj de test generat automat la 2025-10-15 19:00:32"
     }
   },
   {
-    "id": "d270d8d296366e8b",
-    "topic": "notifications",
-    "timestamp": "2025-10-15 19:52:29",
+    "id": "fe048546dda67fec",
+    "topic": "errors",
+    "timestamp": "2025-10-15 19:00:33",
     "content": {
-      "message_id": 9907,
-      "timestamp": "2025-10-15 19:52:16",
+      "message_id": 5754,
+      "timestamp": "2025-10-15 19:00:32",
       "priority": "critical",
       "source": "server",
-      "value": 15.6,
-      "status": "active",
-      "description": "Mesaj de test generat automat la 2025-10-15 19:52:16"
+      "value": 59.03,
+      "status": "error",
+      "description": "Mesaj de test generat automat la 2025-10-15 19:00:32"
     }
   }
 ]
