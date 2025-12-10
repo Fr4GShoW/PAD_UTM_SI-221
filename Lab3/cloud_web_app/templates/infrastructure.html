@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Infrastructure as Code{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+    <h1><i class="bi bi-gear-fill"></i> Infrastructure as Code</h1>
+    <p>Provizionează resurse cloud din configurație JSON</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-upload"></i> Upload Configuration JSON
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Selectează fișier JSON de configurație:</label>
+                        <input type="file" name="config_file" class="form-control" accept=".json" required>
+                    </div>
+                    <button type="submit" class="btn btn-custom w-100">
+                        <i class="bi bi-cloud-upload"></i> Provizionează Infrastructură
+                    </button>
+                </form>
+
+                <hr>
+                <h6>Exemplu de configurație JSON:</h6>
+                <pre class="bg-dark text-light p-3 rounded"><code>{
+  "compute_instances": [
+    {"name": "web-server-1", "cpu": 4, "ram": 8}
+  ],
+  "databases": [
+    {"name": "primary-db", "type": "PostgreSQL", "storage": 50}
+  ],
+  "cache_services": [
+    {"name": "redis-cache", "type": "Redis", "memory": 2}
+  ],
+  "message_brokers": [
+    {"name": "rabbitmq-broker", "type": "RabbitMQ"}
+  ]
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-list-check"></i> Infrastructure Provizionată
+            </div>
+            <div class="card-body" style="max-height: 600px; overflow-y: auto;">
+                <h6>📊 Resurse Totale:</h6>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <span class="badge bg-primary">VM: {{ resources.compute }}</span>
+                    </div>
+                    <div class="col-6">
+                        <span class="badge bg-success">DB: {{ resources.databases }}</span>
+                    </div>
+                </div>
+
+                {% if infra.compute_instances %}
+                <h6 class="mt-3">💻 Compute Instances ({{ infra.compute_instances|length }})</h6>
+                {% for vm in infra.compute_instances %}
+                <div class="alert alert-info mb-2">
+                    <strong>{{ vm.name }}</strong> <span class="badge bg-success float-end">{{ vm.status }}</span><br>
+                    <small>CPU: {{ vm.cpu }} | RAM: {{ vm.ram }}GB | IP: {{ vm.ip }}</small>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                {% if infra.databases %}
+                <h6 class="mt-3">🗄️ Databases ({{ infra.databases|length }})</h6>
+                {% for db in infra.databases %}
+                <div class="alert alert-success mb-2">
+                    <strong>{{ db.name }}</strong><br>
+                    <small>{{ db.type }} v{{ db.version }} | Storage: {{ db.storage }}GB</small>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                {% if infra.cache_services %}
+                <h6 class="mt-3">⚡ Cache Services ({{ infra.cache_services|length }})</h6>
+                {% for cache in infra.cache_services %}
+                <div class="alert alert-warning mb-2">
+                    <strong>{{ cache.name }}</strong><br>
+                    <small>{{ cache.type }} v{{ cache.version }} | Memory: {{ cache.memory }}GB</small>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                {% if logs %}
+                <h6 class="mt-3">📋 Provision Logs:</h6>
+                <div class="log-viewer">
+                    {% for log in logs %}
+                    <div class="log-entry">{{ log }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

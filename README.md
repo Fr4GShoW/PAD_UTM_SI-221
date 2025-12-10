@@ -102,11 +102,11 @@ Crearea unei aplicații distribuite în cloud folosind servicii Python. Integrar
 
 cd Lab1
 
-python server.py
+python message_server.py
 
 # În alt terminal:
-python listener.py
-python gui_sender.py
+
+python message_client.py
 
 ```
 
@@ -118,7 +118,7 @@ python gui_sender.py
 
 cd Lab2
 
-python main.py
+python proxy_server.py
 
 # Configurează browser-ul să folosească proxy pe localhost:8080
 
@@ -132,7 +132,7 @@ python main.py
 
 cd Lab3
 
-python cloud_app.py
+python /Lab3/cloud_web_app/app.py
 
 # Accesează http://localhost:5000 în browser
 
@@ -144,31 +144,50 @@ python cloud_app.py
 PAD_UTM_SI-221/
 ├── Lab1/                  # Agent de Mesagerie
 │   ├── src/
-│   │   ├── server.py
-│   │   ├── listener.py
-│   │   ├── schema.json
-│   │   ├── schema.xsd
-│   │   └── gui_sender.py
-│   ├── messages.json
-│   ├── messages.xml
+│   │   ├── message_server.py
+│   │   ├── message_client.py
+│   │   └── message_protocol.py
+│   ├── tests/
 │   └── requirements.txt
 ├── Lab2/                  # Web Proxy
 │   ├── src/
-│   │   ├── http_proxy.py
-│   │   ├── health_check.py
-│   │   ├── backend_simulator.py
-│   │   ├── main.py
-│   └── └── management_API.py
-├── Lab3/                  # Aplicație Cloud
-│   ├── src/
-│   │   ├── cloud_app.py
-│   │   ├── api/
-│   │   ├── services/
-│   │   └── models/
+│   │   ├── proxy_server.py
+│   │   ├── cache_manager.py
+│   │   └── url_filter.py
 │   ├── tests/
 │   └── requirements.txt
-├── docs/                  # Documentație
-├── requirements.txt       # Dependințe generale
+├── Lab3/                  # Aplicație Cloud
+│   ├── cloud_web_app/
+│   │   ├── static/
+│   │   │   └── style.css
+│   │   ├── templates/
+│   │   │   ├── index.html
+│   │   │   ├── base.html
+│   │   │   ├── 404.html
+│   │   │   ├── cicd.html
+│   │   │   ├── database.html
+│   │   │   ├── deployed_app.html
+│   │   │   ├── infrastructure.html
+│   │   │   ├── message_broker.html
+│   │   │   ├── monitoring.html
+│   │   │   └── cache.html
+│   │   ├── static/
+│   │   │   └── style.css
+│   │   ├── requirements.txt
+│   │   └── app.py
+│   ├── test/
+│   │   ├── app_tests.py
+│   │   ├── app_succes.py
+│   │   ├── simple_test.py
+│   │   └── demo_app.py
+│   ├── cloud_config.json
+│   ├── cloud_infrastructure.json
+│   ├── customers_data.json
+│   ├── database_migration.json
+│   ├── ecommerce_data.json
+│   ├── university_data.json
+│   └── iot_sensors_data.json
+├── .gitignore
 └── README.md
 ```
 
@@ -189,3 +208,47 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 *Generated with ❤️ using Python README Generator*
+
+## 📊 Language usage across project
+
+- **Python**: 51.7%
+- **HTML**: 22.0%
+- **JSON**: 8.2%
+- **XML**: 8.0%
+- **CSS**: 6.9%
+- **Markdown**: 2.4%
+- **Other**: 0.9%
+- **Text**: 0.0%
+
+
+
+## 🧪 Lab 3 — Contents
+
+Files present in Lab3 (scanned):
+
+- `.gitkeep`
+- `cloud_config.json`
+- `cloud_infrastructure.json`
+- `cloud_web_app/app.py`
+- `cloud_web_app/requirements.txt`
+- `cloud_web_app/static/style.css`
+- `cloud_web_app/templates/404.html`
+- `cloud_web_app/templates/base.html`
+- `cloud_web_app/templates/cache.html`
+- `cloud_web_app/templates/cicd.html`
+- `cloud_web_app/templates/database.html`
+- `cloud_web_app/templates/deployed_app.html`
+- `cloud_web_app/templates/index.html`
+- `cloud_web_app/templates/infrastructure.html`
+- `cloud_web_app/templates/message_broker.html`
+- `cloud_web_app/templates/monitoring.html`
+- `customers_data.json`
+- `database_migration.json`
+- `ecommerce_data.json`
+- `iot_sensors_data.json`
+- `tests/app_succes.py`
+- `tests/app_with_tests.py`
+- `tests/demo_app.py`
+- `tests/simple_test.py`
+- `university_data.json`
+

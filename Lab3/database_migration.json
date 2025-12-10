@@ -1,0 +1,113 @@
+{
+  "users": {
+    "user_001": {
+      "name": "Ion Popescu",
+      "email": "ion.popescu@example.com",
+      "age": 30,
+      "city": "București",
+      "role": "admin"
+    },
+    "user_002": {
+      "name": "Maria Ionescu",
+      "email": "maria.ionescu@example.com",
+      "age": 25,
+      "city": "Cluj-Napoca",
+      "role": "user"
+    },
+    "user_003": {
+      "name": "Andrei Georgescu",
+      "email": "andrei.g@example.com",
+      "age": 35,
+      "city": "Timișoara",
+      "role": "moderator"
+    },
+    "user_004": {
+      "name": "Elena Dumitrescu",
+      "email": "elena.d@example.com",
+      "age": 28,
+      "city": "Iași",
+      "role": "user"
+    },
+    "user_005": {
+      "name": "Mihai Constantinescu",
+      "email": "mihai.c@example.com",
+      "age": 42,
+      "city": "Constanța",
+      "role": "admin"
+    }
+  },
+  "products": {
+    "prod_001": {
+      "name": "Laptop Dell XPS 15",
+      "category": "Electronics",
+      "price": 6500,
+      "stock": 15,
+      "description": "Laptop performant pentru profesioniști"
+    },
+    "prod_002": {
+      "name": "Mouse Logitech MX Master 3",
+      "category": "Accessories",
+      "price": 350,
+      "stock": 50,
+      "description": "Mouse ergonomic wireless"
+    },
+    "prod_003": {
+      "name": "Tastatura Mechanică RGB",
+      "category": "Accessories",
+      "price": 450,
+      "stock": 30,
+      "description": "Tastatura gaming cu iluminare RGB"
+    },
+    "prod_004": {
+      "name": "Monitor LG UltraWide 34''",
+      "category": "Electronics",
+      "price": 2800,
+      "stock": 8,
+      "description": "Monitor ultrawide pentru productivitate"
+    },
+    "prod_005": {
+      "name": "Webcam Logitech C920",
+      "category": "Accessories",
+      "price": 450,
+      "stock": 25,
+      "description": "Webcam HD pentru videoconferințe"
+    }
+  },
+  "orders": {
+    "order_001": {
+      "customer_id": "user_001",
+      "order_date": "2025-12-01",
+      "total_amount": 6850,
+      "status": "delivered",
+      "items": ["prod_001", "prod_002"]
+    },
+    "order_002": {
+      "customer_id": "user_002",
+      "order_date": "2025-12-05",
+      "total_amount": 900,
+      "status": "processing",
+      "items": ["prod_003", "prod_005"]
+    },
+    "order_003": {
+      "customer_id": "user_003",
+      "order_date": "2025-12-08",
+      "total_amount": 2800,
+      "status": "shipped",
+      "items": ["prod_004"]
+    },
+    "order_004": {
+      "customer_id": "user_004",
+      "order_date": "2025-12-09",
+      "total_amount": 350,
+      "status": "pending",
+      "items": ["prod_002"]
+    },
+    "order_005": {
+      "customer_id": "user_005",
+      "order_date": "2025-12-10",
+      "total_amount": 7250,
+      "status": "processing",
+      "items": ["prod_001", "prod_003"]
+    }
+  }
+}

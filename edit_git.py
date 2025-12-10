@@ -605,13 +605,103 @@ MANAGEMENT_API_STUB = textwrap.dedent("""\
         print(f"management API stub on {host}:{port}")
 """)
 
-# Update save_readme to optionally scaffold repository when requested via CLI
-def save_readme(content, filename="README.md"):
-    """Save README content to file"""
-    with open(filename, 'w', encoding='utf-8') as f:
-        f.write(content)
-    print(f"✅ README generated successfully: {filename}")
+# New helpers: detect languages by extension and scan project/Lab3
+def detect_language(ext):
+    """Map file extension to a human-friendly language name."""
+    mapping = {
+        '.py': 'Python',
+        '.pyw': 'Python',
+        '.md': 'Markdown',
+        '.json': 'JSON',
+        '.xml': 'XML',
+        '.html': 'HTML',
+        '.htm': 'HTML',
+        '.css': 'CSS',
+        '.js': 'JavaScript',
+        '.sh': 'Shell',
+        '.yml': 'YAML',
+        '.yaml': 'YAML',
+        '.ini': 'INI',
+        '.txt': 'Text',
+        '.sql': 'SQL',
+        '.cfg': 'Config',
+    }
+    return mapping.get(ext.lower(), 'Other')
 
+
+def scan_project_languages(root_dir):
+    """Walk root_dir and compute language usage by total file bytes. Returns ordered dict-like list."""
+    stats = {}
+    total_bytes = 0
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        # skip common non-source directories
+        if any(skip in dirpath for skip in (os.sep + '.git', os.sep + '__pycache__', os.sep + 'venv', os.sep + '.venv')):
+            continue
+        for fname in filenames:
+            full = os.path.join(dirpath, fname)
+            try:
+                size = os.path.getsize(full)
+            except OSError:
+                continue
+            ext = os.path.splitext(fname)[1]
+            lang = detect_language(ext)
+            stats[lang] = stats.get(lang, 0) + size
+            total_bytes += size
+
+    if total_bytes == 0:
+        return {}
+
+    percentages = {lang: round(bytes_count * 100.0 / total_bytes, 1) for lang, bytes_count in stats.items()}
+    # sort by percentage descending
+    sorted_pct = dict(sorted(percentages.items(), key=lambda kv: kv[1], reverse=True))
+    return sorted_pct
+
+
+def scan_lab3(lab3_dir):
+    """Return a sorted list of relative file paths inside Lab3 (if exists)."""
+    if not os.path.isdir(lab3_dir):
+        return []
+    collected = []
+    for dirpath, dirnames, filenames in os.walk(lab3_dir):
+        # skip virtual envs, pycache
+        if any(skip in dirpath for skip in (os.sep + '__pycache__', os.sep + 'venv', os.sep + '.venv')):
+            continue
+        for fname in filenames:
+            rel = os.path.relpath(os.path.join(dirpath, fname), lab3_dir)
+            collected.append(rel.replace('\\', '/'))  # normalize path separators
+    return sorted(collected)
+
+
+def render_language_section(percentages):
+    """Return markdown string with language usage percentages."""
+    if not percentages:
+        return ""
+    md = "## 📊 Language usage across project\n\n"
+    for lang, pct in percentages.items():
+        md += f"- **{lang}**: {pct}%\n"
+    md += "\n"
+    return md
+
+
+def render_lab3_section(files_list):
+    """Return markdown string describing Lab3 contents."""
+    if not files_list:
+        return ""
+    md = "## 🧪 Lab 3 — Contents\n\n"
+    md += "Files present in Lab3 (scanned):\n\n"
+    for f in files_list:
+        md += f"- `{f}`\n"
+    md += "\n"
+    return md
+
+def save_readme(content, dest_path=None):
+    """Save README content to dest_path or to repository root README.md when dest_path is None."""
+    if dest_path is None:
+        dest_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "README.md")
+    os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+    with open(dest_path, "w", encoding="utf-8") as f:
+        f.write(content)
+    print(f"✅ README written to: {os.path.abspath(dest_path)}")
 
 # Replace example usage with optional scaffolding via CLI
 if __name__ == "__main__":
@@ -625,6 +715,22 @@ if __name__ == "__main__":
         generator.set_basic_info("PAD_UTM_SI-221", "PAD project", "https://github.com/Fr4GShoW/PAD_UTM_SI-221")
         readme_content = generator.generate_readme()
 
+    # Enrich README with Lab3 scan and language percentages (project root inferred from this script location)
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    lab3_dir = os.path.join(base_dir, "Lab3")
+
+    # compute percentages across the whole project
+    language_percentages = scan_project_languages(base_dir)
+    if language_percentages:
+        readme_content += "\n\n" + render_language_section(language_percentages)
+
+    # add Lab3 files list
+    lab3_files = scan_lab3(lab3_dir)
+    if lab3_files:
+        readme_content += "\n\n" + render_lab3_section(lab3_files)
+    else:
+        # if Lab3 folder missing, provide a short note
+        readme_content += "\n\n## 🧪 Lab 3 — Contents\n\nLab3 folder not found in repository root. Run the scaffold or add Lab3 files to generate this section.\n\n"
     save_readme(readme_content)
 
     # CLI: optionally scaffold entire repository layout
@@ -637,4 +743,6 @@ if __name__ == "__main__":
         scaffold_repo(target, files_map)
     else:
         print("\nRun this script with '--scaffold [target_dir]' to write a recommended repository layout (mostly Python).")
+
+
 

@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block title %}Message Broker{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+    <h1><i class="bi bi-envelope-fill"></i> Message Broker (RabbitMQ-like)</h1>
+    <p>Gestionează message queues și asynchronous messaging</p>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-plus-circle"></i> Creează Queue
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="create">
+                    <div class="mb-3">
+                        <input type="text" name="queue_name" class="form-control" placeholder="orders, notifications, etc." required>
+                    </div>
+                    <button type="submit" class="btn btn-info w-100">
+                        <i class="bi bi-plus"></i> Creează Queue
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-send"></i> Publish Message
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="publish">
+                    <div class="mb-3">
+                        <label class="form-label">Queue:</label>
+                        <select name="queue_name" class="form-select" required>
+                            {% for queue in stats.queues %}
+                            <option value="{{ queue }}">{{ queue }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message:</label>
+                        <textarea name="message" class="form-control" rows="3" placeholder='{"order_id": "ORD-001", "amount": 150}' required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-send"></i> PUBLISH
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-download"></i> Consume Message
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="consume">
+                    <div class="mb-3">
+                        <select name="queue_name" class="form-select" required>
+                            {% for queue in stats.queues %}
+                            <option value="{{ queue }}">{{ queue }} ({{ stats.queue_sizes[queue] }} messages)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-download"></i> CONSUME
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header bg-warning">
+                <i class="bi bi-trash"></i> Purge Queue
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="purge">
+                    <div class="mb-3">
+                        <select name="queue_name" class="form-select" required>
+                            {% for queue in stats.queues %}
+                            <option value="{{ queue }}">{{ queue }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100">
+                        <i class="bi bi-trash"></i> PURGE (șterge mesaje)
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-x-circle"></i> Delete Queue
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="delete_queue">
+                    <div class="mb-3">
+                        <select name="queue_name" class="form-select" required>
+                            {% for queue in stats.queues %}
+                            <option value="{{ queue }}">{{ queue }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="bi bi-x-circle"></i> DELETE Queue
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-bar-chart"></i> Message Broker Statistics
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="stats-box success text-center">
+                            <h4>{{ stats.messages_sent }}</h4>
+                            <p>Messages Sent</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-box primary text-center">
+                            <h4>{{ stats.messages_received }}</h4>
+                            <p>Messages Consumed</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-box warning text-center">
+                            <h4>{{ stats.messages_pending }}</h4>
+                            <p>Pending Messages</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h6>📋 Active Queues ({{ stats.queue_count }}):</h6>
+                <div class="mb-3">
+                    {% for queue in stats.queues %}
+                    <span class="badge bg-info me-2 mb-2">
+                        {{ queue }}
+                        <span class="badge bg-light text-dark">{{ stats.queue_sizes[queue] }}</span>
+                    </span>
+                    {% endfor %}
+                </div>
+
+                <hr>
+                <h6>📜 Message History (Ultimele {{ stats.history|length }}):</h6>
+                <div class="log-viewer" style="max-height: 400px;">
+                    {% for item in stats.history|reverse %}
+                    <div class="log-entry">
+                        <span class="log-time">{{ item.time }}</span> -
+                        <span class="{% if item.action == 'PUBLISH' %}log-level-success{% else %}log-level-info{% endif %}">
+                            {{ item.action }}
+                        </span>
+                        în <code>{{ item.queue }}</code>
+                        {% if item.message %}
+                        <br><small class="text-muted">{{ item.message }}</small>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

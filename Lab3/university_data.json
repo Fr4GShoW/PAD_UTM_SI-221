@@ -1,0 +1,153 @@
+{
+  "students": {
+    "stud_001": {
+      "name": "Popescu Alexandru",
+      "email": "alexandru.popescu@stud.utm.md",
+      "faculty": "Informatică",
+      "year": 3,
+      "group": "SI-221",
+      "enrollment_date": "2023-09-01",
+      "gpa": 9.45
+    },
+    "stud_002": {
+      "name": "Ionescu Andreea",
+      "email": "andreea.ionescu@stud.utm.md",
+      "faculty": "Informatică",
+      "year": 2,
+      "group": "SI-222",
+      "enrollment_date": "2024-09-01",
+      "gpa": 8.92
+    },
+    "stud_003": {
+      "name": "Georgescu Mihai",
+      "email": "mihai.georgescu@stud.utm.md",
+      "faculty": "Inginerie",
+      "year": 4,
+      "group": "IE-211",
+      "enrollment_date": "2022-09-01",
+      "gpa": 9.12
+    },
+    "stud_004": {
+      "name": "Radu Elena",
+      "email": "elena.radu@stud.utm.md",
+      "faculty": "Economie",
+      "year": 1,
+      "group": "EC-241",
+      "enrollment_date": "2025-09-01",
+      "gpa": 8.75
+    },
+    "stud_005": {
+      "name": "Marinescu Victor",
+      "email": "victor.marinescu@stud.utm.md",
+      "faculty": "Informatică",
+      "year": 3,
+      "group": "SI-221",
+      "enrollment_date": "2023-09-01",
+      "gpa": 9.67
+    }
+  },
+  "courses": {
+    "course_001": {
+      "name": "Programare Avansată Distribuită",
+      "code": "PAD",
+      "credits": 5,
+      "semester": "autumn",
+      "year": 3,
+      "professor": "Prof. Dr. Ion Vasilescu",
+      "faculty": "Informatică"
+    },
+    "course_002": {
+      "name": "Baze de Date",
+      "code": "BD",
+      "credits": 6,
+      "semester": "spring",
+      "year": 2,
+      "professor": "Prof. Dr. Maria Popescu",
+      "faculty": "Informatică"
+    },
+    "course_003": {
+      "name": "Algoritmi și Structuri de Date",
+      "code": "ASD",
+      "credits": 6,
+      "semester": "autumn",
+      "year": 2,
+      "professor": "Conf. Dr. Andrei Ionescu",
+      "faculty": "Informatică"
+    },
+    "course_004": {
+      "name": "Inteligență Artificială",
+      "code": "IA",
+      "credits": 5,
+      "semester": "spring",
+      "year": 3,
+      "professor": "Prof. Dr. Elena Georgescu",
+      "faculty": "Informatică"
+    },
+    "course_005": {
+      "name": "Cloud Computing",
+      "code": "CC",
+      "credits": 4,
+      "semester": "autumn",
+      "year": 3,
+      "professor": "Lect. Dr. Mihai Radu",
+      "faculty": "Informatică"
+    }
+  },
+  "grades": {
+    "grade_001": {
+      "student_id": "stud_001",
+      "course_id": "course_001",
+      "grade": 10,
+      "exam_date": "2025-12-20",
+      "type": "final_exam"
+    },
+    "grade_002": {
+      "student_id": "stud_001",
+      "course_id": "course_005",
+      "grade": 9,
+      "exam_date": "2025-12-15",
+      "type": "final_exam"
+    },
+    "grade_003": {
+      "student_id": "stud_002",
+      "course_id": "course_002",
+      "grade": 8,
+      "exam_date": "2025-06-10",
+      "type": "final_exam"
+    },
+    "grade_004": {
+      "student_id": "stud_005",
+      "course_id": "course_001",
+      "grade": 10,
+      "exam_date": "2025-12-20",
+      "type": "final_exam"
+    },
+    "grade_005": {
+      "student_id": "stud_005",
+      "course_id": "course_004",
+      "grade": 9,
+      "exam_date": "2025-06-15",
+      "type": "final_exam"
+    }
+  },
+  "attendance": {
+    "att_001": {
+      "student_id": "stud_001",
+      "course_id": "course_001",
+      "date": "2025-12-10",
+      "status": "present"
+    },
+    "att_002": {
+      "student_id": "stud_002",
+      "course_id": "course_002",
+      "date": "2025-12-10",
+      "status": "absent"
+    },
+    "att_003": {
+      "student_id": "stud_005",
+      "course_id": "course_001",
+      "date": "2025-12-10",
+      "status": "present"
+    }
+  }
+}

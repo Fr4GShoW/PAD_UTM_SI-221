@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}Cloud Database{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+    <h1><i class="bi bi-database-fill"></i> Cloud Database Management</h1>
+    <p>Operații CRUD și migrare date</p>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-plus-circle"></i> INSERT Record
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="insert">
+                    <div class="mb-3">
+                        <label class="form-label">Tabela:</label>
+                        <input type="text" name="table" class="form-control" placeholder="users, products, etc." required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Key (ID):</label>
+                        <input type="text" name="key" class="form-control" placeholder="user_001" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Value (JSON sau text):</label>
+                        <textarea name="value" class="form-control" rows="3" placeholder='{"name": "Ion", "email": "ion@example.com"}' required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-plus"></i> INSERT
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-pencil"></i> UPDATE Record
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="update">
+                    <div class="mb-3">
+                        <input type="text" name="table" class="form-control" placeholder="Tabela" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="key" class="form-control" placeholder="Key" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="value" class="form-control" rows="2" placeholder="New Value" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-pencil"></i> UPDATE
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-trash"></i> DELETE Record
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="delete">
+                    <div class="mb-3">
+                        <input type="text" name="table" class="form-control" placeholder="Tabela" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="key" class="form-control" placeholder="Key" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="bi bi-trash"></i> DELETE
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-arrow-down-circle"></i> Migrare Date din JSON
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="migrate">
+                    <div class="mb-3">
+                        <input type="file" name="data_file" class="form-control" accept=".json" required>
+                    </div>
+                    <button type="submit" class="btn btn-info w-100">
+                        <i class="bi bi-download"></i> Migrează Date
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-table"></i> Date în Database
+                <a href="{{ url_for('database_export') }}" class="btn btn-sm btn-custom float-end">
+                    <i class="bi bi-download"></i> Export JSON
+                </a>
+            </div>
+            <div class="card-body" style="max-height: 700px; overflow-y: auto;">
+                <div class="stats-box mb-3">
+                    <p><strong>Status:</strong> <span class="badge bg-success">{{ stats.status }}</span></p>
+                    <p><strong>Type:</strong> {{ stats.type }}</p>
+                    <p><strong>Total Records:</strong> {{ stats.total_records }}</p>
+                    <p><strong>Total Transactions:</strong> {{ stats.total_transactions }}</p>
+                </div>
+
+                {% for table, records in data.items() %}
+                <h6 class="text-primary mt-4">📊 Tabela: {{ table }} ({{ records|length }} records)</h6>
+                <table class="table table-sm table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, value in records.items() %}
+                    <tr>
+                        <td><code>{{ key }}</code></td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endfor %}
+
+                {% if stats.transactions %}
+                <h6 class="mt-4">📜 Ultimele Tranzacții:</h6>
+                <div class="log-viewer">
+                    {% for trans in stats.transactions %}
+                    <div class="log-entry">
+                        <span class="log-time">{{ trans.time }}</span> -
+                        <span class="log-level-info">{{ trans.op }}</span> în {{ trans.table }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

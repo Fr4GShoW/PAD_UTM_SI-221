@@ -1,0 +1,94 @@
+{
+  "sensors": {
+    "sensor_001": {
+      "type": "temperature",
+      "location": "Server Room A",
+      "unit": "Celsius",
+      "min_threshold": 18,
+      "max_threshold": 25,
+      "status": "active"
+    },
+    "sensor_002": {
+      "type": "humidity",
+      "location": "Server Room A",
+      "unit": "percentage",
+      "min_threshold": 40,
+      "max_threshold": 60,
+      "status": "active"
+    },
+    "sensor_003": {
+      "type": "cpu_usage",
+      "location": "Production Server 1",
+      "unit": "percentage",
+      "min_threshold": 0,
+      "max_threshold": 80,
+      "status": "active"
+    },
+    "sensor_004": {
+      "type": "memory_usage",
+      "location": "Production Server 1",
+      "unit": "percentage",
+      "min_threshold": 0,
+      "max_threshold": 85,
+      "status": "active"
+    },
+    "sensor_005": {
+      "type": "disk_usage",
+      "location": "Database Server",
+      "unit": "percentage",
+      "min_threshold": 0,
+      "max_threshold": 90,
+      "status": "warning"
+    }
+  },
+  "readings": {
+    "read_001": {
+      "sensor_id": "sensor_001",
+      "timestamp": "2025-12-10T15:00:00",
+      "value": 22.5,
+      "status": "normal"
+    },
+    "read_002": {
+      "sensor_id": "sensor_002",
+      "timestamp": "2025-12-10T15:00:00",
+      "value": 55,
+      "status": "normal"
+    },
+    "read_003": {
+      "sensor_id": "sensor_003",
+      "timestamp": "2025-12-10T15:00:00",
+      "value": 75,
+      "status": "normal"
+    },
+    "read_004": {
+      "sensor_id": "sensor_004",
+      "timestamp": "2025-12-10T15:00:00",
+      "value": 82,
+      "status": "normal"
+    },
+    "read_005": {
+      "sensor_id": "sensor_005",
+      "timestamp": "2025-12-10T15:00:00",
+      "value": 92,
+      "status": "critical"
+    }
+  },
+  "alerts": {
+    "alert_001": {
+      "sensor_id": "sensor_005",
+      "timestamp": "2025-12-10T14:55:00",
+      "severity": "critical",
+      "message": "Disk usage exceeded 90% threshold",
+      "acknowledged": false,
+      "resolved": false
+    },
+    "alert_002": {
+      "sensor_id": "sensor_003",
+      "timestamp": "2025-12-10T12:30:00",
+      "severity": "warning",
+      "message": "CPU usage spike detected",
+      "acknowledged": true,
+      "resolved": true
+    }
+  }
+}

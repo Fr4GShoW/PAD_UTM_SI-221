@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Cloud Cache{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+    <h1><i class="bi bi-lightning-fill"></i> Cloud Cache (Redis-like)</h1>
+    <p>Gestionează cache cu TTL și operații rapide</p>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-plus-circle"></i> SET Value
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="set">
+                    <div class="mb-3">
+                        <label class="form-label">Cache Key:</label>
+                        <input type="text" name="key" class="form-control" placeholder="session_user_123" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Value:</label>
+                        <textarea name="value" class="form-control" rows="3" placeholder='{"user_id": "123", "token": "abc"}' required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">TTL (secunde):</label>
+                        <input type="number" name="ttl" class="form-control" value="300" min="1">
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-save"></i> SET
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-search"></i> GET Value
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="get">
+                    <div class="mb-3">
+                        <input type="text" name="key" class="form-control" placeholder="Cache Key" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-search"></i> GET
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="bi bi-trash"></i> DELETE Key
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="action" value="delete">
+                    <div class="mb-3">
+                        <input type="text" name="key" class="form-control" placeholder="Cache Key" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="bi bi-trash"></i> DELETE
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-exclamation-triangle"></i> FLUSH ALL
+            </div>
+            <div class="card-body">
+                <form method="POST" onsubmit="return confirm('Ștergi TOATE datele din cache?');">
+                    <input type="hidden" name="action" value="flush">
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="bi bi-trash3"></i> FLUSH ALL CACHE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-bar-chart"></i> Cache Statistics & Data
+            </div>
+            <div class="card-body">
+                <h5>📊 Performance Metrics:</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="stats-box success text-center">
+                            <h4>{{ stats.hits }}</h4>
+                            <p>Cache Hits</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-box text-center" style="border-left-color: #dc3545;">
+                            <h4 class="text-danger">{{ stats.misses }}</h4>
+                            <p>Cache Misses</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-box primary text-center">
+                            <h4>{{ stats.hit_rate }}</h4>
+                            <p>Hit Rate</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p><strong>Total Entries:</strong> {{ stats.entries }}</p>
+                <p><strong>Memory Usage:</strong> {{ stats.memory_usage }}</p>
+                <p><strong>Evictions:</strong> {{ stats.evictions }}</p>
+
+                <hr>
+                <h6>🔑 Keys în Cache ({{ stats.entries }}):</h6>
+                {% if data %}
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                                <th>TTL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for key, entry in data.items() %}
+                        <tr>
+                            <td><code>{{ key }}</code></td>
+                            <td>{{ entry.value }}</td>
+                            <td><span class="badge bg-info">{{ entry.ttl }}s</span></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Cache-ul este gol
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

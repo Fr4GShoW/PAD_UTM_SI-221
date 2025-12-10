@@ -1,0 +1,65 @@
+{
+  "compute_instances": [
+    {
+      "name": "web-server-1",
+      "cpu": 4,
+      "ram": 8,
+      "os": "Ubuntu 22.04"
+    },
+    {
+      "name": "app-server-1",
+      "cpu": 8,
+      "ram": 16,
+      "os": "Ubuntu 22.04"
+    },
+    {
+      "name": "worker-node-1",
+      "cpu": 2,
+      "ram": 4,
+      "os": "Debian 11"
+    }
+  ],
+  "databases": [
+    {
+      "name": "primary-db",
+      "type": "PostgreSQL",
+      "storage": 100,
+      "version": "15.0"
+    },
+    {
+      "name": "analytics-db",
+      "type": "MongoDB",
+      "storage": 50,
+      "version": "6.0"
+    }
+  ],
+  "cache_services": [
+    {
+      "name": "redis-cache",
+      "type": "Redis",
+      "memory": 4,
+      "version": "7.0"
+    }
+  ],
+  "message_brokers": [
+    {
+      "name": "rabbitmq-broker",
+      "type": "RabbitMQ",
+      "version": "3.11"
+    }
+  ],
+  "load_balancers": [
+    {
+      "name": "main-lb",
+      "type": "Application LB",
+      "algorithm": "Round Robin"
+    }
+  ],
+  "storage": [
+    {
+      "name": "backup-storage",
+      "type": "Block Storage",
+      "size": 500
+    }
+  ]
+}

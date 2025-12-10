@@ -1,0 +1,44 @@
+{
+  "compute_instances": [
+    {
+      "name": "web-server-1",
+      "cpu": 4,
+      "ram": 8
+    },
+    {
+      "name": "app-server-1",
+      "cpu": 8,
+      "ram": 16
+    },
+    {
+      "name": "worker-1",
+      "cpu": 2,
+      "ram": 4
+    }
+  ],
+  "databases": [
+    {
+      "name": "primary-db",
+      "type": "PostgreSQL",
+      "storage": 100
+    },
+    {
+      "name": "analytics-db",
+      "type": "MongoDB",
+      "storage": 50
+    }
+  ],
+  "cache_services": [
+    {
+      "name": "redis-cache",
+      "type": "Redis",
+      "memory": 4
+    }
+  ],
+  "message_brokers": [
+    {
+      "name": "rabbitmq-broker",
+      "type": "RabbitMQ"
+    }
+  ]
+}

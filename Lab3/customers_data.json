@@ -1,0 +1,125 @@
+{
+  "customers": {
+    "cust_001": {
+      "name": "SC ABC Solutions SRL",
+      "contact_person": "Gheorghe Popescu",
+      "email": "contact@abc-solutions.ro",
+      "phone": "+40 21 234 5678",
+      "address": "Str. Victoriei nr. 10, București",
+      "type": "company",
+      "registration_date": "2023-01-15"
+    },
+    "cust_002": {
+      "name": "SC XYZ Technology SRL",
+      "contact_person": "Ana Marinescu",
+      "email": "office@xyz-tech.ro",
+      "phone": "+40 31 456 7890",
+      "address": "Bd. Unirii nr. 45, Cluj-Napoca",
+      "type": "company",
+      "registration_date": "2023-03-20"
+    },
+    "cust_003": {
+      "name": "Freelancer - Ion Vasilescu",
+      "contact_person": "Ion Vasilescu",
+      "email": "ion.vasilescu@gmail.com",
+      "phone": "+40 72 345 6789",
+      "address": "Str. Libertății nr. 23, Timișoara",
+      "type": "individual",
+      "registration_date": "2023-06-10"
+    },
+    "cust_004": {
+      "name": "SC Digital Media SRL",
+      "contact_person": "Maria Popa",
+      "email": "contact@digital-media.ro",
+      "phone": "+40 23 567 8901",
+      "address": "Str. Republicii nr. 78, Iași",
+      "type": "company",
+      "registration_date": "2022-11-05"
+    },
+    "cust_005": {
+      "name": "Freelancer - Elena Radu",
+      "contact_person": "Elena Radu",
+      "email": "elena.radu@yahoo.com",
+      "phone": "+40 74 890 1234",
+      "address": "Bd. Tomis nr. 156, Constanța",
+      "type": "individual",
+      "registration_date": "2024-02-14"
+    }
+  },
+  "invoices": {
+    "inv_001": {
+      "customer_id": "cust_001",
+      "invoice_number": "FV2025001",
+      "issue_date": "2025-11-15",
+      "due_date": "2025-12-15",
+      "amount": 15000,
+      "status": "paid",
+      "payment_date": "2025-12-01"
+    },
+    "inv_002": {
+      "customer_id": "cust_002",
+      "invoice_number": "FV2025002",
+      "issue_date": "2025-11-20",
+      "due_date": "2025-12-20",
+      "amount": 8500,
+      "status": "pending",
+      "payment_date": null
+    },
+    "inv_003": {
+      "customer_id": "cust_003",
+      "invoice_number": "FV2025003",
+      "issue_date": "2025-12-01",
+      "due_date": "2025-12-31",
+      "amount": 3200,
+      "status": "paid",
+      "payment_date": "2025-12-05"
+    },
+    "inv_004": {
+      "customer_id": "cust_004",
+      "invoice_number": "FV2025004",
+      "issue_date": "2025-12-05",
+      "due_date": "2026-01-05",
+      "amount": 12000,
+      "status": "overdue",
+      "payment_date": null
+    },
+    "inv_005": {
+      "customer_id": "cust_005",
+      "invoice_number": "FV2025005",
+      "issue_date": "2025-12-10",
+      "due_date": "2026-01-10",
+      "amount": 4500,
+      "status": "pending",
+      "payment_date": null
+    }
+  },
+  "projects": {
+    "proj_001": {
+      "customer_id": "cust_001",
+      "project_name": "Cloud Migration",
+      "start_date": "2025-10-01",
+      "end_date": "2025-12-31",
+      "budget": 50000,
+      "status": "in_progress",
+      "completion_percentage": 75
+    },
+    "proj_002": {
+      "customer_id": "cust_002",
+      "project_name": "Mobile App Development",
+      "start_date": "2025-11-15",
+      "end_date": "2026-03-15",
+      "budget": 35000,
+      "status": "in_progress",
+      "completion_percentage": 30
+    },
+    "proj_003": {
+      "customer_id": "cust_004",
+      "project_name": "Website Redesign",
+      "start_date": "2025-09-01",
+      "end_date": "2025-11-30",
+      "budget": 20000,
+      "status": "completed",
+      "completion_percentage": 100
+    }
+  }
+}

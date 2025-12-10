@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Monitoring{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+    <h1><i class="bi bi-graph-up"></i> Monitoring & Logs</h1>
+    <p>Monitorizare în timp real a serviciilor cloud</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="stats-box primary text-center">
+            <h3>{{ metrics.requests }}</h3>
+            <p>Total Requests</p>
+            <i class="bi bi-arrow-up-circle" style="font-size: 2rem; color: #667eea;"></i>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stats-box text-center" style="border-left-color: #dc3545;">
+            <h3 class="text-danger">{{ metrics.errors }}</h3>
+            <p>Errors</p>
+            <i class="bi bi-exclamation-triangle" style="font-size: 2rem; color: #dc3545;"></i>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stats-box success text-center">
+            <h3>{{ metrics.uptime }}</h3>
+            <p>Uptime</p>
+            <i class="bi bi-check-circle" style="font-size: 2rem; color: #38ef7d;"></i>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-graph-up"></i> System Metrics (Real-time)
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>CPU Usage:</h6>
+                        {% if metrics.cpu %}
+                            {% for item in metrics.cpu %}
+                            <p class="small mb-1">
+                                <span class="text-muted">{{ item.time }}</span> -
+                                <span class="badge bg-primary">{{ item.value|round(2) }}%</span>
+                            </p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Memory Usage:</h6>
+                        {% if metrics.memory %}
+                            {% for item in metrics.memory %}
+                            <p class="small mb-1">
+                                <span class="text-muted">{{ item.time }}</span> -
+                                <span class="badge bg-warning">{{ item.value|round(2) }}%</span>
+                            </p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-file-text"></i> System Logs (Ultimele 50)
+            </div>
+            <div class="card-body">
+                <div class="log-viewer" style="max-height: 500px;">
+                    {% for log in logs|reverse %}
+                    <div class="log-entry">
+                        <span class="log-time">{{ log.time }}</span> -
+                        <span class="log-level-{{ log.level|lower }}">{{ log.level }}</span> -
+                        {{ log.message }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

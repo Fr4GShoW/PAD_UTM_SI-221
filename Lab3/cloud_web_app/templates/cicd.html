@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}CI/CD Pipeline{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+    <h1><i class="bi bi-arrow-repeat"></i> CI/CD Pipeline</h1>
+    <p>Build, Test, Deploy - Automated deployment pipeline</p>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-upload"></i> Upload Code & Deploy
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Branch:</label>
+                        <select name="branch" class="form-select">
+                            <option value="main">main</option>
+                            <option value="develop">develop</option>
+                            <option value="staging">staging</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Upload fișier cod (Python, TXT):</label>
+                        <input type="file" name="code_file" class="form-control" accept=".py,.txt" required>
+                    </div>
+                    <button type="submit" class="btn btn-custom w-100">
+                        <i class="bi bi-play-circle"></i> Rulează Pipeline (Build → Test → Deploy)
+                    </button>
+                </form>
+
+                <hr>
+                <div class="alert alert-info">
+                    <strong>📋 Pipeline Stages:</strong>
+                    <ol class="mb-0 mt-2">
+                        <li><strong>Build:</strong> Compilare și artifact creation</li>
+                        <li><strong>Test:</strong> Unit & Integration tests</li>
+                        <li><strong>Security:</strong> Vulnerability scanning</li>
+                        <li><strong>Deploy:</strong> Deploy pe localhost:5000</li>
+                    </ol>
+                </div>
+
+                {% if stats %}
+                <div class="stats-box mt-3">
+                    <h6>📊 Pipeline Statistics:</h6>
+                    <p><strong>Total Builds:</strong> {{ stats.total_builds }}</p>
+                    <p><strong>Successful:</strong> <span class="badge bg-success">{{ stats.successful }}</span></p>
+                    <p><strong>Failed:</strong> <span class="badge bg-danger">{{ stats.failed }}</span></p>
+                    <p><strong>Success Rate:</strong> <span class="badge badge-custom">{{ stats.success_rate }}</span></p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-clock-history"></i> Build History (Ultimele 10)
+            </div>
+            <div class="card-body" style="max-height: 700px; overflow-y: auto;">
+                {% if builds %}
+                    {% for build in builds|reverse %}
+                    <div class="card mb-3 {% if build.overall_status == 'success' %}border-success{% else %}border-danger{% endif %}">
+                        <div class="card-header {% if build.overall_status == 'success' %}bg-success{% else %}bg-danger{% endif %} text-white">
+                            <strong>Build #{{ build.number }}</strong> - {{ build.branch }} branch
+                            <span class="badge bg-light text-dark float-end">{{ build.time }} ({{ build.duration }})</span>
+                        </div>
+                        <div class="card-body">
+                            {% for stage in build.stages %}
+                            <div class="mb-3 pb-2 border-bottom">
+                                <h6>
+                                    {% if stage.status == 'success' %}
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                    {% else %}
+                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                    {% endif %}
+                                    {{ stage.name }}
+                                    <small class="text-muted">({{ stage.duration }})</small>
+                                </h6>
+                                {% for log in stage.logs %}
+                                <p class="mb-1 small text-muted">{{ log }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+
+                            {% if build.deploy_url %}
+                            <div class="alert alert-success mb-0">
+                                <i class="bi bi-link-45deg"></i> <strong>Deploy URL:</strong>
+                                <code>{{ build.deploy_url }}</code>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Niciun build în istoric. Upload cod pentru a începe!
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

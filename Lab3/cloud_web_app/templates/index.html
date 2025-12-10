@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Cloud Provider{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+    <h1><i class="bi bi-speedometer2"></i> Cloud Provider Dashboard</h1>
+    <p>Monitorizează toate serviciile cloud în timp real</p>
+</div>
+
+<div class="row slide-up">
+    <div class="col-md-3">
+        <div class="stats-box primary">
+            <h3>{{ stats.resources.compute }}</h3>
+            <p>Compute Instances</p>
+            <i class="bi bi-server" style="color: #667eea;"></i>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-box success">
+            <h3>{{ stats.database.total_records }}</h3>
+            <p>Database Records</p>
+            <i class="bi bi-database-fill" style="color: #38ef7d;"></i>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-box warning">
+            <h3>{{ stats.cache.entries }}</h3>
+            <p>Cache Entries</p>
+            <i class="bi bi-lightning-fill" style="color: #f2c94c;"></i>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-box info">
+            <h3>{{ stats.broker.queue_count }}</h3>
+            <p>Message Queues</p>
+            <i class="bi bi-envelope-fill" style="color: #00f2fe;"></i>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-database"></i> Database Statistics
+            </div>
+            <div class="card-body">
+                <p><strong>Type:</strong> <span class="badge bg-primary">{{ stats.database.type }}</span></p>
+                <p><strong>Status:</strong> <span class="badge bg-success">{{ stats.database.status }}</span></p>
+                <p><strong>Tables:</strong> {{ stats.database.tables|length }}</p>
+                <p><strong>Total Records:</strong> {{ stats.database.total_records }}</p>
+                <p><strong>Transactions:</strong> {{ stats.database.total_transactions }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-lightning"></i> Cache Statistics
+            </div>
+            <div class="card-body">
+                <p><strong>Entries:</strong> {{ stats.cache.entries }}</p>
+                <p><strong>Hits:</strong> <span class="badge bg-success">{{ stats.cache.hits }}</span></p>
+                <p><strong>Misses:</strong> <span class="badge bg-danger">{{ stats.cache.misses }}</span></p>
+                <p><strong>Hit Rate:</strong> <span class="badge badge-custom">{{ stats.cache.hit_rate }}</span></p>
+                <p><strong>Memory Usage:</strong> {{ stats.cache.memory_usage }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-envelope"></i> Message Broker
+            </div>
+            <div class="card-body">
+                <p><strong>Active Queues:</strong> {{ stats.broker.queue_count }}</p>
+                <p><strong>Messages Sent:</strong> {{ stats.broker.messages_sent }}</p>
+                <p><strong>Messages Received:</strong> {{ stats.broker.messages_received }}</p>
+                <p><strong>Pending:</strong> {{ stats.broker.messages_pending }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-arrow-repeat"></i> CI/CD Pipeline
+            </div>
+            <div class="card-body">
+                <p><strong>Total Builds:</strong> {{ stats.pipeline.total_builds }}</p>
+                <p><strong>Successful:</strong> <span class="badge bg-success">{{ stats.pipeline.successful }}</span></p>
+                <p><strong>Failed:</strong> <span class="badge bg-danger">{{ stats.pipeline.failed }}</span></p>
+                <p><strong>Success Rate:</strong> <span class="badge badge-custom">{{ stats.pipeline.success_rate }}</span></p>
+                <p><strong>Last Status:</strong>
+                    <span class="badge {% if stats.pipeline.last_status == 'success' %}bg-success{% else %}bg-danger{% endif %}">
+                        {{ stats.pipeline.last_status }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-play-circle"></i> Quick Actions
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('infrastructure') }}" class="btn btn-custom me-2">
+                    <i class="bi bi-upload"></i> Upload Infrastructure Config
+                </a>
+                <a href="{{ url_for('database_page') }}" class="btn btn-custom me-2">
+                    <i class="bi bi-database"></i> Manage Database
+                </a>
+                <a href="{{ url_for('cicd_page') }}" class="btn btn-custom me-2">
+                    <i class="bi bi-play-circle"></i> Run CI/CD Pipeline
+                </a>
+                <a href="{{ url_for('monitoring_page') }}" class="btn btn-custom">
+                    <i class="bi bi-graph-up"></i> View Monitoring
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

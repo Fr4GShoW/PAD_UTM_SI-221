@@ -1,0 +1,136 @@
+{
+  "categories": {
+    "cat_001": {
+      "name": "Electronică",
+      "description": "Laptopuri, telefoane, tablete",
+      "parent_category": null,
+      "active": true
+    },
+    "cat_002": {
+      "name": "Accesorii",
+      "description": "Mouse-uri, tastaturi, căști",
+      "parent_category": "cat_001",
+      "active": true
+    },
+    "cat_003": {
+      "name": "Gaming",
+      "description": "Produse pentru gaming",
+      "parent_category": "cat_001",
+      "active": true
+    },
+    "cat_004": {
+      "name": "Cărți",
+      "description": "Cărți fizice și electronice",
+      "parent_category": null,
+      "active": true
+    },
+    "cat_005": {
+      "name": "Îmbrăcăminte",
+      "description": "Haine și pantofi",
+      "parent_category": null,
+      "active": true
+    }
+  },
+  "products_stock": {
+    "stock_001": {
+      "product_id": "prod_001",
+      "warehouse": "Bucuresti",
+      "quantity": 150,
+      "reserved": 25,
+      "available": 125,
+      "last_updated": "2025-12-10"
+    },
+    "stock_002": {
+      "product_id": "prod_002",
+      "warehouse": "Cluj-Napoca",
+      "quantity": 200,
+      "reserved": 50,
+      "available": 150,
+      "last_updated": "2025-12-10"
+    },
+    "stock_003": {
+      "product_id": "prod_003",
+      "warehouse": "Timisoara",
+      "quantity": 80,
+      "reserved": 10,
+      "available": 70,
+      "last_updated": "2025-12-09"
+    }
+  },
+  "reviews": {
+    "review_001": {
+      "product_id": "prod_001",
+      "customer_id": "user_001",
+      "rating": 5,
+      "title": "Excelent laptop!",
+      "comment": "Performanță extraordinară, recomand cu căldură!",
+      "date": "2025-12-05",
+      "verified_purchase": true
+    },
+    "review_002": {
+      "product_id": "prod_002",
+      "customer_id": "user_002",
+      "rating": 4,
+      "title": "Foarte bun",
+      "comment": "Mouse ergonomic și precis. Un pic scump dar merită.",
+      "date": "2025-12-07",
+      "verified_purchase": true
+    },
+    "review_003": {
+      "product_id": "prod_001",
+      "customer_id": "user_003",
+      "rating": 5,
+      "title": "Cel mai bun laptop",
+      "comment": "Folosesc pentru programare și funcționează perfect!",
+      "date": "2025-12-08",
+      "verified_purchase": true
+    }
+  },
+  "shipping": {
+    "ship_001": {
+      "order_id": "order_001",
+      "courier": "FAN Courier",
+      "tracking_number": "FAN123456789",
+      "shipped_date": "2025-12-02",
+      "estimated_delivery": "2025-12-04",
+      "actual_delivery": "2025-12-03",
+      "status": "delivered"
+    },
+    "ship_002": {
+      "order_id": "order_002",
+      "courier": "DPD",
+      "tracking_number": "DPD987654321",
+      "shipped_date": "2025-12-06",
+      "estimated_delivery": "2025-12-09",
+      "actual_delivery": null,
+      "status": "in_transit"
+    },
+    "ship_003": {
+      "order_id": "order_003",
+      "courier": "Cargus",
+      "tracking_number": "CRG555666777",
+      "shipped_date": "2025-12-09",
+      "estimated_delivery": "2025-12-12",
+      "actual_delivery": null,
+      "status": "pending"
+    }
+  },
+  "promotions": {
+    "promo_001": {
+      "code": "WINTER2025",
+      "discount_percentage": 15,
+      "valid_from": "2025-12-01",
+      "valid_until": "2025-12-31",
+      "min_purchase": 1000,
+      "active": true
+    },
+    "promo_002": {
+      "code": "BLACKFRIDAY",
+      "discount_percentage": 25,
+      "valid_from": "2025-11-25",
+      "valid_until": "2025-11-30",
+      "min_purchase": 500,
+      "active": false
+    }
+  }
+}

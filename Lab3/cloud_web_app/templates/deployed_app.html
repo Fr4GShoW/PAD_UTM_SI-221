@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% block title %}Deployed App #{{ stats.build_id }}{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+    <h1><i class="bi bi-rocket-takeoff"></i> Deployed Application #{{ stats.build_id }}</h1>
+    <p>Aplicație deployed din branch: <span class="badge badge-custom">{{ stats.branch }}</span></p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-info-circle"></i> Application Information
+            </div>
+            <div class="card-body">
+                <div class="alert {% if stats.status == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+                    <h5>
+                        {% if stats.status == 'success' %}
+                        <i class="bi bi-check-circle-fill"></i> Application is running successfully!
+                        {% else %}
+                        <i class="bi bi-x-circle-fill"></i> Application deployment failed
+                        {% endif %}
+                    </h5>
+                </div>
+
+                <h6 class="mt-4">📊 Build Information:</h6>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Build Number:</th>
+                        <td><span class="badge bg-primary">#{{ stats.build_id }}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Branch:</th>
+                        <td><code>{{ stats.branch }}</code></td>
+                    </tr>
+                    <tr>
+                        <th>Deploy Time:</th>
+                        <td>{{ stats.deploy_time }}</td>
+                    </tr>
+                    <tr>
+                        <th>Build Duration:</th>
+                        <td>{{ stats.build_info.duration }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td>
+                            <span class="badge {% if stats.status == 'success' %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ stats.status|upper }}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+
+                <h6 class="mt-4">🔄 Pipeline Stages:</h6>
+                <div class="row">
+                    {% for stage in stats.build_info.stages %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card {% if stage.status == 'success' %}border-success{% else %}border-danger{% endif %}">
+                            <div class="card-body">
+                                <h6>
+                                    {% if stage.status == 'success' %}
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                    {% else %}
+                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                    {% endif %}
+                                    {{ stage.name }}
+                                    <small class="text-muted">({{ stage.duration }})</small>
+                                </h6>
+                                <ul class="small mb-0">
+                                    {% for log in stage.logs[:3] %}
+                                    <li>{{ log }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <i class="bi bi-terminal"></i> Application Demo
+            </div>
+            <div class="card-body">
+                <h5>🎉 Welcome to Deployed Application #{{ stats.build_id }}</h5>
+                <p>This is a demo page for your deployed cloud application.</p>
+
+                <div class="alert alert-info">
+                    <strong>Features:</strong>
+                    <ul>
+                        <li>✓ Cloud Database Integration</li>
+                        <li>✓ Redis Cache Layer</li>
+                        <li>✓ Message Queue Processing</li>
+                        <li>✓ Real-time Monitoring</li>
+                        <li>✓ Auto-scaling Enabled</li>
+                    </ul>
+                </div>
+
+                <h6>API Endpoints Available:</h6>
+                <div class="bg-dark text-light p-3 rounded">
+                    <code>
+                        GET  /api/health     - Health check<br>
+                        GET  /api/stats      - Application statistics<br>
+                        POST /api/users      - Create user<br>
+                        GET  /api/users      - List all users<br>
+                        GET  /api/metrics    - Performance metrics
+                    </code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-graph-up"></i> Live Metrics
+            </div>
+            <div class="card-body">
+                <div class="stats-box primary text-center mb-3">
+                    <h3>{{ stats.uptime }}</h3>
+                    <p>Status</p>
+                </div>
+
+                <div class="stats-box success text-center mb-3">
+                    <h3>{{ stats.requests }}</h3>
+                    <p>Total Requests</p>
+                </div>
+
+                <div class="stats-box warning text-center mb-3">
+                    <h3>{{ stats.active_users }}</h3>
+                    <p>Active Users</p>
+                </div>
+
+                <div class="stats-box info text-center">
+                    <h3>{{ stats.response_time }}</h3>
+                    <p>Avg Response Time</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <i class="bi bi-gear"></i> Quick Actions
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('index') }}" class="btn btn-custom w-100 mb-2">
+                    <i class="bi bi-house"></i> Back to Dashboard
+                </a>
+                <a href="{{ url_for('cicd_page') }}" class="btn btn-custom w-100 mb-2">
+                    <i class="bi bi-arrow-repeat"></i> View All Builds
+                </a>
+                <a href="{{ url_for('monitoring_page') }}" class="btn btn-custom w-100">
+                    <i class="bi bi-graph-up"></i> View Monitoring
+                </a>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header bg-success text-white">
+                <i class="bi bi-shield-check"></i> Security Status
+            </div>
+            <div class="card-body">
+                <p class="text-success mb-1">✓ SSL Certificate Valid</p>
+                <p class="text-success mb-1">✓ Firewall Active</p>
+                <p class="text-success mb-1">✓ DDoS Protection</p>
+                <p class="text-success mb-0">✓ Security Scan Passed</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-clock-history"></i> Deployment Timeline
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    {% for stage in stats.build_info.stages %}
+                    <div class="timeline-item mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="{% if stage.status == 'success' %}bg-success{% else %}bg-danger{% endif %} text-white rounded-circle p-2 me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                {% if stage.status == 'success' %}
+                                <i class="bi bi-check"></i>
+                                {% else %}
+                                <i class="bi bi-x"></i>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h6 class="mb-0">{{ stage.name }}</h6>
+                                <small class="text-muted">Completed in {{ stage.duration }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
